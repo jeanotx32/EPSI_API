@@ -53,8 +53,8 @@ class TodoRepository {
     create(data) {
         return new Promise((resolve, reject) => {
             this.database.run(
-                'INSERT INTO todo (contents, done) VALUES (?,?)',
-                [data.contents, data.done ? 1 : 0],
+                'INSERT INTO actors (first_name, last_name, date_of_birth, date_of_death) VALUES (?,?,?,?)',
+                [data.first_name, data.last_name, data.date_of_birth, data.date_of_birth],
                 function (err) {
                     if (err) {
                         console.error(err.message);

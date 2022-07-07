@@ -45,7 +45,7 @@ exports.todo_get = (req, res) => {
 
 exports.todo_create = (req, res) => {
     const errors = [];
-    ['contents', 'done'].forEach((field) => {
+    ['first_name', 'last_name', 'date_of_birth', 'date_of_death'].forEach((field) => {
         if (!req.body[field]) {
             errors.push(`Field '${field}' is missing from request body`);
         }
@@ -61,8 +61,10 @@ exports.todo_create = (req, res) => {
     const repo = new TodoRepository(db);
 
     repo.create({
-        contents: req.body.contents,
-        done: req.body.done === 'true',
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        date_of_birth: req.body.date_of_birth,
+        date_of_death: req.body.date_of_death,
     })
         .then((result) => {
             res

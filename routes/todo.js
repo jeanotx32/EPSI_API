@@ -5,8 +5,8 @@ const router = express.Router();
 
 router.get('/', todoController.todo_list);
 router.get('/actor/:id', todoController.todo_get_actor);
-router.get('/actor/', todoController.todo_get);
-router.post('/', todoController.todo_create);
+router.get('/actor', todoController.todo_get);
+router.post('/actor', todoController.todo_create);
 router.put('/:id', todoController.todo_update);
 router.delete('/:id', todoController.todo_delete);
 
