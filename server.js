@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 });
 
 // Routes "Todo"
-app.use('/api/todo', todoRoutes);
+app.use('/api', todoRoutes);
 
 // Fallback route
 app.use((req, res) => {

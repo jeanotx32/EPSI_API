@@ -15,6 +15,20 @@ exports.todo_list = (req, res) => {
         });
 };
 
+exports.todo_get_actor = (req, res) => {
+    const repo = new TodoRepository(db);
+    repo.get_actor(req.params.id)
+        .then((result) => {
+            res.json({
+                success: true,
+                data: result,
+            });
+        })
+        .catch((err) => {
+            res.status(404).json({ error: err.message });
+        });
+}
+
 exports.todo_get = (req, res) => {
     const repo = new TodoRepository(db);
     repo.get(req.params.id)

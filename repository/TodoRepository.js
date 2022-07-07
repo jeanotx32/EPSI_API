@@ -35,6 +35,21 @@ class TodoRepository {
         });
     }
 
+    get_actor(id) {
+        return new Promise((resolve, reject) => {
+            this.database.get('SELECT * FROM actors WHERE id = ?', [id], (err, row) => {
+                if (err) {
+                    console.error(err.message);
+                    reject(err);
+                } else {
+                    resolve(
+                        this.decorator(row),
+                    );
+                }
+            });
+        });
+    }
+
     create(data) {
         return new Promise((resolve, reject) => {
             this.database.run(

@@ -4,6 +4,7 @@ const todoController = require('../controllers/TodoController');
 const router = express.Router();
 
 router.get('/', todoController.todo_list);
+router.get('/actor/:id', todoController.todo_get_actor);
 router.get('/:id', todoController.todo_get);
 router.post('/', todoController.todo_create);
 router.put('/:id', todoController.todo_update);
