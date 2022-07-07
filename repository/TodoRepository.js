@@ -20,15 +20,15 @@ class TodoRepository {
         });
     }
 
-    get(id) {
+    get() {
         return new Promise((resolve, reject) => {
-            this.database.get('SELECT * FROM todo WHERE id = ?', [id], (err, row) => {
+            this.database.all('SELECT * FROM actors', [], (err, rows) => {
                 if (err) {
                     console.error(err.message);
                     reject(err);
                 } else {
                     resolve(
-                        this.decorator(row),
+                        rows.map((row) => this.decorator(row)),
                     );
                 }
             });

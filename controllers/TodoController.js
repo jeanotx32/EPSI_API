@@ -31,7 +31,7 @@ exports.todo_get_actor = (req, res) => {
 
 exports.todo_get = (req, res) => {
     const repo = new TodoRepository(db);
-    repo.get(req.params.id)
+    repo.get()
         .then((result) => {
             res.json({
                 success: true,
