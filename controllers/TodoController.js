@@ -45,7 +45,7 @@ exports.todo_get = (req, res) => {
 
 exports.todo_create = (req, res) => {
     const errors = [];
-    ['first_name', 'last_name', 'date_of_birth', 'date_of_death'].forEach((field) => {
+    ['first_name', 'last_name', 'date_of_birth'].forEach((field) => {
         if (!req.body[field]) {
             errors.push(`Field '${field}' is missing from request body`);
         }
@@ -64,7 +64,7 @@ exports.todo_create = (req, res) => {
         first_name: req.body.first_name,
         last_name: req.body.last_name,
         date_of_birth: req.body.date_of_birth,
-        date_of_death: req.body.date_of_death,
+        date_of_death: req.body.date_of_death
     })
         .then((result) => {
             res
