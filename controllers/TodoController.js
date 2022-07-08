@@ -64,7 +64,7 @@ exports.todo_create = (req, res) => {
         first_name: req.body.first_name,
         last_name: req.body.last_name,
         date_of_birth: req.body.date_of_birth,
-        date_of_death: req.body.date_of_death
+        date_of_death: req.body.date_of_death,
     })
         .then((result) => {
             res
@@ -81,11 +81,6 @@ exports.todo_create = (req, res) => {
 
 exports.todo_update = (req, res) => {
     const errors = [];
-    ['contents', 'done'].forEach((field) => {
-        if (!req.body[field]) {
-            errors.push(`Field '${field}' is missing from request body`);
-        }
-    });
     if (errors.length) {
         res.status(400).json({
             success: false,
@@ -99,12 +94,14 @@ exports.todo_update = (req, res) => {
     repo.update(
         req.params.id,
         {
-            contents: req.body.contents,
-            done: req.body.done === 'true',
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            date_of_birth: req.body.date_of_birth,
+            date_of_death: req.body.date_of_death,
         },
     )
         .then(() => {
-            repo.get(req.params.id)
+            repo.get_actor(req.params.id)
                 .then((result) => {
                     res.json({
                         success: true,
