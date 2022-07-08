@@ -92,7 +92,7 @@ class TodoRepository {
     delete(id) {
         return new Promise((resolve, reject) => {
             this.database.run(
-                `DELETE FROM todo
+                `DELETE FROM actors
                  WHERE id = ?`,
                 [id],
                 (err) => {
