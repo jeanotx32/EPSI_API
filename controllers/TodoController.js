@@ -128,3 +128,119 @@ exports.todo_delete = (req, res) => {
             res.status(400).json({ error: err.message });
         });
 };
+
+exports.todo_delete_genre = (req, res) => {
+    const repo = new TodoRepository(db);
+    repo.delete_genre(req.params.id)
+        .then(() => {
+            res.status(204)
+                .json({
+                    success: true,
+                });
+        })
+        .catch((err) => {
+            res.status(400).json({ error: err.message });
+        });
+};
+
+exports.todo_get_genre = (req, res) => {
+    const repo = new TodoRepository(db);
+    repo.get_genre()
+        .then((result) => {
+            res.json({
+                success: true,
+                data: result,
+            });
+        })
+        .catch((err) => {
+            res.status(404).json({ error: err.message });
+        });
+};
+
+exports.todo_create_genre = (req, res) => {
+    const errors = [];
+    ['name'].forEach((field) => {
+        if (!req.body[field]) {
+            errors.push(`Field '${field}' is missing from request body`);
+        }
+    });
+    if (errors.length) {
+        res.status(400).json({
+            success: false,
+            errors,
+        });
+        return;
+    }
+
+    const repo = new TodoRepository(db);
+
+    repo.create_genre({
+        name: req.body.name,
+    })
+        .then((result) => {
+            res
+                .status(201)
+                .json({
+                    success: true,
+                    id: result,
+                });
+        })
+        .catch((err) => {
+            res.status(400).json({ error: err.message });
+        });
+};
+
+exports.todo_get_film = (req, res) => {
+    const repo = new TodoRepository(db);
+    repo.get_film(req.params.id)
+        .then((result) => {
+            res.json({
+                success: true,
+                data: result,
+            });
+        })
+        .catch((err) => {
+            res.status(404).json({ error: err.message });
+        });
+}
+
+exports.todo_get_films = (req, res) => {
+    const repo = new TodoRepository(db);
+    films = repo.get_films()
+        .catch((err) => {
+            res.status(404).json({ error: err.message });
+        });
+
+    actor = repo.get_films2(films.id)
+        .catch((err) => {
+            res.status(404).json({ error: err.message });
+        });
+
+    genre = repo.get_films3(films.genre_id)
+        .catch((err) => {
+            res.status(404).json({ error: err.message });
+        });
+
+    for(film in films) {
+        res.json({
+            success: true,
+            data: film,
+            actors: actor,
+            genres: genre
+        });
+    }
+};
+
+exports.todo_delete_film = (req, res) => {
+    const repo = new TodoRepository(db);
+    repo.delete_film(req.params.id)
+        .then(() => {
+            res.status(204)
+                .json({
+                    success: true,
+                });
+        })
+        .catch((err) => {
+            res.status(400).json({ error: err.message });
+        });
+};
